@@ -66,11 +66,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         gMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        googleMap.addMarker( new MarkerOptions().position( new LatLng( -34.9208142, -57.9518059)).title( "Pet Shop Flux - Local 2" ).snippet("Yendo!"));
+        googleMap.addMarker( new MarkerOptions().position( new LatLng( -34.9208142, -57.9518059)).title( "Pet Shop Flux - Capital Federal" ).snippet("Yendo!"));
         CameraPosition petShopFlux2 = CameraPosition.builder().target(new LatLng(-34.9208142, -57.9518059)).zoom(16).bearing(0).tilt(45).build();
         googleMap.moveCamera( CameraUpdateFactory.newCameraPosition(petShopFlux2));
 
-        googleMap.addMarker( new MarkerOptions().position( new LatLng( -34.6188126, -58.3677217)).title( "Pet Shop Flux - Local 1" ).snippet("Yendo!"));
+        googleMap.addMarker( new MarkerOptions().position( new LatLng( -34.6188126, -58.3677217)).title( "Pet Shop Flux - La Plata" ).snippet("Yendo!"));
         CameraPosition petShopFlux1 = CameraPosition.builder().target(new LatLng(-34.6188126, -58.3677217)).zoom(16).bearing(0).tilt(45).build();
         googleMap.moveCamera( CameraUpdateFactory.newCameraPosition(petShopFlux1));
 
