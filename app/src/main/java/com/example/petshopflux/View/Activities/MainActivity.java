@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
 
     List<Pet> listOfPets;
 
+    //Status hardcodeado por consigna
     String status = "available";
 
     SearchView searchView;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
 
         listOfPets = new ArrayList<>();
 
+        //Comportamiento del Pull to refresh.
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -65,12 +67,9 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
 
         createRecycler();
         loadPets();
-
-
     }
 
-
-
+    //Creo recyclerview con su adaptador.
     private void createRecycler(){
         recyclerViewPets = findViewById(R.id.recyclerView_main_pets);
         adapterPets = new PetsAdapter(this,this);
@@ -79,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         recyclerViewPets.setLayoutManager(layoutManager);
     }
 
+    //La vista recibe (o no) la lista de mascotas desde el controlador de mascotas.
     private void loadPets(){
 
         PetController petController = new PetController(this);
@@ -103,9 +103,11 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
             }
         };
 
+        //Obtengo las mascotas por status.
         petController.getPetByStatus(viewListener,status);
     }
 
+    //Interfaz para comunicar mi fragment con mi activity.
     @Override
     public void petClicked(Pet pet) {
         Intent intent = new Intent(this, DetailActivity.class);
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         startActivity(intent);
     }
 
+    //Menu de Appbar.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -140,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Funcion para trabajar las Pets que vienen con su nombre en null o vacío o "".
     public List<Pet> checkNullsInListOfPets(List<Pet> list){
         for (Pet pet : list) {
             if (pet.getName() == null || pet.getName() == "" || pet.getName().isEmpty()){

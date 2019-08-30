@@ -22,25 +22,16 @@ public class PetsAdapter extends RecyclerView.Adapter implements Filterable {
 
     public Context context;
 
-    private List<Pet> petList;
-    private PetListenerInterface petListenerInterface;
+    private List<Pet> petList; //Lista principal
+    private List<Pet> petListForFilter; //Lista para no modificar la original, utilizada para el filtro.
 
-    private List<Pet> petListForFilter;
+    private PetListenerInterface petListenerInterface; // Interface para comunicar fragment con activity.
 
     public PetsAdapter(Context context,PetListenerInterface petListenerInterface) {
         this.context = context;
         this.petList = new ArrayList<>();
         this.petListenerInterface = petListenerInterface;
         petListForFilter = new ArrayList<>();
-    }
-
-    public void setPetList(List<Pet> petList) {
-        if (petList != null){
-            this.petList.clear();
-            this.petList = petList;
-            notifyDataSetChanged();
-        }
-
     }
 
     @NonNull
@@ -67,12 +58,14 @@ public class PetsAdapter extends RecyclerView.Adapter implements Filterable {
         return petList.size();
     }
 
+    //Metodos necesarios para que el filtro funcione.
     @Override
     public Filter getFilter() {
         return filter;
     }
 
     private Filter filter = new Filter() {
+        //Por cada letra que se agregue al searchview se va a ejecutar este metodo, utilizando el charsequense para compararse con el name cada pet del array.
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<Pet> filteredList = new ArrayList<>();
@@ -94,6 +87,7 @@ public class PetsAdapter extends RecyclerView.Adapter implements Filterable {
             return results;
         }
 
+        //Cuando termina de filtrar y pasa por acá. Limpia la lista principal y le agrega lo de la nueva lista filtrada.
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             petList.clear();
@@ -131,6 +125,15 @@ public class PetsAdapter extends RecyclerView.Adapter implements Filterable {
 
     public void setPetListForFilter(List<Pet> petListForFilter) {
         this.petListForFilter = petListForFilter;
+    }
+
+    public void setPetList(List<Pet> petList) {
+        if (petList != null){
+            this.petList.clear();
+            this.petList = petList;
+            notifyDataSetChanged();
+        }
+
     }
 
 

@@ -33,15 +33,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Required empty public constructor
     }
 
+    //Fragment que hice basandome en varios consejos de StackOverflow.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-
-
-
         return view;
     }
 
@@ -50,7 +48,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated( view, savedInstanceState );
         mapView = view.findViewById( R.id.gmap );
 
-        // si los datos no bajan nulos, seteo la información del mapa
+        // Seteo info del Map si los datos no son null
         if (mapView != null) {
             mapView.onCreate(null);
             mapView.onResume();
@@ -59,6 +57,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
+    //Donde seteo las coordenadas a marcar en al Map.
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());

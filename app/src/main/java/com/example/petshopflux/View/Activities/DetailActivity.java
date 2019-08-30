@@ -52,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    //Función para cargar fragment de detalles de mascota.
     private void loadFragmentPet(Fragment fragment){
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -61,6 +62,8 @@ public class DetailActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         fragmentTransaction.commit();
     }
+
+    //Función para cargar fragment de mapas.
     private void loadFragmentMap(Fragment fragment){
         mapsOn = true;
         frameLayoutMaps.setVisibility(View.VISIBLE);
@@ -83,6 +86,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    //Función para ocultar el fragment de mapas. No hace un "unload", simplemente lo oculta.
     private void unloadFragmentMap(){
         mapsOn = false;
         frameLayoutAlphaView.animate().alpha(0f);
@@ -94,6 +98,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+    //Menu del Appbar.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
