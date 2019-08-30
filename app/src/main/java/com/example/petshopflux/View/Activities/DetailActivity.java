@@ -65,7 +65,7 @@ public class DetailActivity extends AppCompatActivity {
         mapsOn = true;
         frameLayoutMaps.setVisibility(View.VISIBLE);
         frameLayoutAlphaView.setVisibility(View.VISIBLE);
-        frameLayoutAlphaView.animate().alpha(1.0f);
+        frameLayoutAlphaView.animate().alpha(0.6f);
         frameLayoutMaps.animate().alpha(1.0f);
         frameLayoutMaps.setClickable(true);
         frameLayoutAlphaView.setClickable(true);

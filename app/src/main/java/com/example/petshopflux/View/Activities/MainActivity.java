@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
 
     String status = "available";
 
+    SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
             @Override
             public void onRefresh() {
                 loadPets();
+                //invalidateOptionsMenu();
+                searchView.setQuery("", false);
+                searchView.clearFocus();
             }
         });
 
@@ -80,12 +85,12 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         ResultListener<List<Pet>> viewListener = new ResultListener<List<Pet>>() {
             @Override
             public void finish(List<Pet> result) {
-                if (result != null){
+                if (result.size() != 0){
                     listOfPets = checkNullsInListOfPets(result);
                     adapterPets.notifyDataSetChanged();
                     adapterPets.setPetList(listOfPets);
                     adapterPets.setPetListForFilter(new ArrayList<Pet>(listOfPets));
-                    Toast.makeText(MainActivity.this, "Pets cargadas correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.service_succesful), Toast.LENGTH_SHORT).show();
 
                     //Oculto la loading screen.
                     lottieAnimationView.cancelAnimation();
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
                     swipeRefreshLayout.setRefreshing(false);
 
                 }else{
-                    Toast.makeText(MainActivity.this, "Pets FAILURE", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.service_failure), Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -117,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         inflater.inflate(R.menu.menu_search,menu);
 
         MenuItem searchItem = menu.findItem(R.id.item_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView = (SearchView) searchItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
