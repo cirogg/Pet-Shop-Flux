@@ -1,4 +1,4 @@
-# Pet Shop Flux - Ciro Gonzalez
+# Pet Shop Flux - Ciro Gonzalez ( **[LinkedIn](https://www.linkedin.com/in/ciro-m-gonzalez/)** )
 ### Android Developer
 #### Desafío técnico para Flux it. 
 
