@@ -4,33 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
-
 import com.example.petshopflux.R;
 import com.example.petshopflux.View.Fragments.DetailFragment;
 import com.example.petshopflux.View.Fragments.MapsFragment;
-import com.google.android.gms.maps.MapFragment;
 
-import java.math.BigInteger;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static String PET_ID = "id";
-    String pet_id;
-    FragmentManager fragmentManager;
+    private String pet_id;
+    private FragmentManager fragmentManager;
 
-    FrameLayout frameLayoutAlphaView;
-    FrameLayout frameLayoutMaps;
+    private FrameLayout frameLayoutAlphaView;
+    private FrameLayout frameLayoutMaps;
 
-    Boolean mapsOn;
+    private  Boolean mapsOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

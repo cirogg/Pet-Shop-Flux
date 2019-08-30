@@ -9,7 +9,6 @@ public class Pet {
     private Category category;
     private String name;
     private List<String> photoUrls;
-//    private List<String> tags;
     private String status;
 
     public Pet(BigInteger id, String name, String status) {

@@ -5,7 +5,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,33 +13,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.petshopflux.Controller.PetController;
 import com.example.petshopflux.Model.Pet;
 import com.example.petshopflux.R;
 import com.example.petshopflux.Utils.ResultListener;
 import com.example.petshopflux.View.Adapters.PetsAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PetsAdapter.PetListenerInterface {
 
 
-    RecyclerView recyclerViewPets;
-    PetsAdapter adapterPets;
+    private RecyclerView recyclerViewPets;
+    private PetsAdapter adapterPets;
 
-    SwipeRefreshLayout swipeRefreshLayout;
-    FrameLayout frameLayoutLoading;
-    LottieAnimationView lottieAnimationView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private FrameLayout frameLayoutLoading;
+    private LottieAnimationView lottieAnimationView;
 
-    List<Pet> listOfPets;
+    private List<Pet> listOfPets;
 
     //Status hardcodeado por consigna
-    String status = "available";
+    private String status = "available";
 
-    SearchView searchView;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
     public List<Pet> checkNullsInListOfPets(List<Pet> list){
         for (Pet pet : list) {
             if (pet.getName() == null || pet.getName() == "" || pet.getName().isEmpty()){
-                pet.setName("Animalito sin nombre :(");
+                pet.setName(getResources().getString(R.string.null_name_replace));
             }
         }
 

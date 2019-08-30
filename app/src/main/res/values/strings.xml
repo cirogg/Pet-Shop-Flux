@@ -8,8 +8,10 @@
     <string name="status">Status</string>
     <string name="id">ID</string>
 
-    <string name="service_succesful">Service Ok</string>
-    <string name="service_failure">Service Fail</string>
+    <string name="service_succesful">Mascotas  actualizadas!</string>
+    <string name="service_failure">Falló en actualizar mascotas</string>
+
+    <string name="null_name_replace">Mascota sin nombre</string>
 
 
 

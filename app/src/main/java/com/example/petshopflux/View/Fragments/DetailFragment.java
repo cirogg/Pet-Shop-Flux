@@ -18,15 +18,15 @@ import java.math.BigInteger;
  */
 public class DetailFragment extends Fragment {
 
-    Pet pet;
+    private Pet pet;
 
-    PetController petController;
+    private PetController petController;
 
-    TextView textViewName;
-    TextView textViewStatus;
-    TextView textViewID;
+    private TextView textViewName;
+    private TextView textViewStatus;
+    private TextView textViewID;
 
-    BigInteger petID;
+    private BigInteger petID;
 
     public DetailFragment() {
         // Required empty public constructor
