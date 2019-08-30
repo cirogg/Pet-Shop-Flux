@@ -1,12 +1,16 @@
 package com.example.petshopflux.View.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -18,11 +22,11 @@ import com.example.petshopflux.R;
 import com.example.petshopflux.Utils.ResultListener;
 import com.example.petshopflux.View.Adapters.PetsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PetsAdapter.PetListenerInterface {
 
-    PetController petController;
 
     RecyclerView recyclerViewPets;
     PetsAdapter adapterPets;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
     SwipeRefreshLayout swipeRefreshLayout;
     FrameLayout frameLayoutLoading;
     LottieAnimationView lottieAnimationView;
+
+    List<Pet> listOfPets;
 
     String status = "available";
 
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         lottieAnimationView.playAnimation();
         frameLayoutLoading.setVisibility(View.VISIBLE);
 
+        listOfPets = new ArrayList<>();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -69,15 +76,15 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
 
     private void loadPets(){
 
-//        frameLayoutLoading.setVisibility(View.VISIBLE);
-//        lottieAnimationView.playAnimation();
-
         PetController petController = new PetController(this);
         ResultListener<List<Pet>> viewListener = new ResultListener<List<Pet>>() {
             @Override
             public void finish(List<Pet> result) {
                 if (result != null){
-                    adapterPets.setPetList(result);
+                    listOfPets = checkNullsInListOfPets(result);
+                    adapterPets.notifyDataSetChanged();
+                    adapterPets.setPetList(listOfPets);
+                    adapterPets.setPetListForFilter(new ArrayList<Pet>(listOfPets));
                     Toast.makeText(MainActivity.this, "Pets cargadas correctamente", Toast.LENGTH_SHORT).show();
 
                     //Oculto la loading screen.
@@ -101,5 +108,40 @@ public class MainActivity extends AppCompatActivity implements PetsAdapter.PetLi
         bundle.putString(DetailActivity.PET_ID, String.valueOf(pet.getId()));
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterPets.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public List<Pet> checkNullsInListOfPets(List<Pet> list){
+        for (Pet pet : list) {
+            if (pet.getName() == null || pet.getName() == "" || pet.getName().isEmpty()){
+                pet.setName("Animalito sin nombre :(");
+            }
+        }
+
+        return list;
     }
 }

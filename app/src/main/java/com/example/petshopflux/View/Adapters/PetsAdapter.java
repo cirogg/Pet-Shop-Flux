@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,17 +18,20 @@ import com.example.petshopflux.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetsAdapter extends RecyclerView.Adapter {
+public class PetsAdapter extends RecyclerView.Adapter implements Filterable {
 
     public Context context;
 
     private List<Pet> petList;
     private PetListenerInterface petListenerInterface;
 
+    private List<Pet> petListForFilter;
+
     public PetsAdapter(Context context,PetListenerInterface petListenerInterface) {
         this.context = context;
         this.petList = new ArrayList<>();
         this.petListenerInterface = petListenerInterface;
+        petListForFilter = new ArrayList<>();
     }
 
     public void setPetList(List<Pet> petList) {
@@ -62,6 +67,41 @@ public class PetsAdapter extends RecyclerView.Adapter {
         return petList.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<Pet> filteredList = new ArrayList<>();
+
+            if (charSequence == null || charSequence.length() == 0){
+                filteredList.addAll(petListForFilter);
+            }else{
+                String filterString = charSequence.toString().toLowerCase().trim();
+
+                for (Pet pet : petListForFilter) {
+                    if (pet.getName().toLowerCase().contains(filterString)){
+                        filteredList.add(pet);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            petList.clear();
+            petList.addAll((List)filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
     public class ViewHolderPet extends RecyclerView.ViewHolder {
 
         private TextView textViewPetName;
@@ -88,4 +128,10 @@ public class PetsAdapter extends RecyclerView.Adapter {
     public interface PetListenerInterface {
         void petClicked(Pet pet);
     }
+
+    public void setPetListForFilter(List<Pet> petListForFilter) {
+        this.petListForFilter = petListForFilter;
+    }
+
+
 }

@@ -6,9 +6,9 @@ import java.util.List;
 public class Pet {
 
     private BigInteger id;
-    //private Category category;
+    private Category category;
     private String name;
-//    private List<String> photoUrls;
+    private List<String> photoUrls;
 //    private List<String> tags;
     private String status;
 
@@ -40,5 +40,13 @@ public class Pet {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public List<String> getPhotoUrls() {
+        return photoUrls;
     }
 }

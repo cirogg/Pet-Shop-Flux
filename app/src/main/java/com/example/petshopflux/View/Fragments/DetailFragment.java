@@ -18,6 +18,7 @@ import com.example.petshopflux.Utils.ResultListener;
 import com.example.petshopflux.View.Activities.DetailActivity;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.xml.transform.Result;
 
@@ -62,7 +63,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void finish(Pet result) {
                 if (result!=null){
-                    pet = result;
+                    pet = checkNullsInPetName(result);
                     loadPetData(pet);
                 }
             }
@@ -81,5 +82,15 @@ public class DetailFragment extends Fragment {
         textViewName.setText(pet.getName());
         textViewStatus.setText(pet.getStatus());
         textViewID.setText(String.valueOf(pet.getId()));
+    }
+
+    public Pet checkNullsInPetName(Pet pet){
+
+        if (pet.getName() == null || pet.getName() == "" || pet.getName().isEmpty()){
+            pet.setName("Animalito sin nombre :(");
+        }
+
+
+        return pet;
     }
 }
