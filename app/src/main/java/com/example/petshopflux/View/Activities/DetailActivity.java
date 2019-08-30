@@ -43,8 +43,6 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailFragment detailFragment = new DetailFragment();
         loadFragmentPet(detailFragment);
-
-
     }
 
     //Función para cargar fragment de detalles de mascota.
@@ -90,7 +88,6 @@ public class DetailActivity extends AppCompatActivity {
         frameLayoutAlphaView.setVisibility(View.INVISIBLE);
         frameLayoutMaps.setClickable(false);
         frameLayoutAlphaView.setClickable(false);
-
     }
 
     //Menu del Appbar.
